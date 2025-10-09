@@ -1,0 +1,13 @@
+import socket
+server=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+server.bind(('localhost',8080))
+addr,port=server.getsockname()
+print(f"server is up and running at {addr} on port {port}")
+server.listen(5)
+conn,addr=server.accept()
+print(f"connection from{addr} has been established!")
+conn.sendall(b"hello!")
+data=conn.rev(100).decode()
+print(f"mesage from {addr[0]}: {data}")
+conn.close()
+server.close()
